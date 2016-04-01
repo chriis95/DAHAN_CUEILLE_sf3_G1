@@ -3,6 +3,8 @@
 namespace AppBundle\Controller\Article;
 
 use AppBundle\Entity\Article\Article;
+use AppBundle\Form\Article\ArticleType;
+use AppBundle\Repository\Article\ArticleRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -11,7 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class ArticleController extends Controller
 {
     /**
-     * @Route("/{id}", requirements={"id" = "\d+"})
+     * @Route("/{id}", requirements={"id" = "\d+"}, name="article_show")
      *
      * @param $id
      *
@@ -25,31 +27,43 @@ class ArticleController extends Controller
     }
 
     /**
-     * @Route("/list")
+     * @Route("/list", name="article_list")
      */
     public function listAction()
     {
+        $em = $this->getDoctrine()->getManager();
+        $articleRepository = $em->getRepository('AppBundle:Article\Article');
+
+        $author = 'moi';
+
+        $articles = $articleRepository->findBy([
+            'author' => $author
+        ]);
+
+        dump($articles);
+
         return new Response('List of article');
     }
 
     /**
-     * @Route("/new")
+     * @Route("/new", name="article_new")
      */
-    public function newAction()
+    public function newAction(Request $request)
     {
-        $em = $this->getDoctrine()->getManager();
+        $form = $this->createForm(ArticleType::class);
 
-        $article = new Article();
-        $article
-            ->setTitle('Osef du titre')
-            ->setContent('blabla bla')
-            ->setTag('osef')
-            ->setCreatedAt(new \DateTime())
-        ;
+        $form->handleRequest($request);
 
-        $em->persist($article);
-        $em->flush();
+        if ($form->isValid()) {
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($form->getData());
+            $em->flush();
 
-        return new Response('Article created');
+            return $this->redirectToRoute('article_list');
+        }
+
+        return $this->render('AppBundle:Article:new.html.twig', [
+            'form' => $form->createView(),
+        ]);
     }
 }
