@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller\Article;
 
+use AppBundle\Entity\Article\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -29,5 +30,26 @@ class ArticleController extends Controller
     public function listAction()
     {
         return new Response('List of article');
+    }
+
+    /**
+     * @Route("/new")
+     */
+    public function newAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $article = new Article();
+        $article
+            ->setTitle('Osef du titre')
+            ->setContent('blabla bla')
+            ->setTag('osef')
+            ->setCreatedAt(new \DateTime())
+        ;
+
+        $em->persist($article);
+        $em->flush();
+
+        return new Response('Article created');
     }
 }

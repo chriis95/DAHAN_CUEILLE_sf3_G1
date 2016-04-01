@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Article\Article;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -13,7 +14,7 @@ class HomeController extends Controller
      */
     public function indexAction()
     {
-        $antispam = $this->get('antispam');
+        /*$antispam = $this->get('antispam');
 
         dump($antispam->isSpam('RZERZERZERZERZzerzerzerzr'));die;
 
@@ -37,6 +38,20 @@ class HomeController extends Controller
         return $this->render('AppBundle:Home:index.html.twig', [
             'name'      => $name,
             'tutorials' => $tutorials,
+        ]);*/
+
+        $em = $this->getDoctrine()->getManager();
+        $articleRepository = $em->getRepository('AppBundle:Article\Article');
+
+        $articles = $articleRepository->findAll();
+
+        dump($articles);die;
+
+        return $this->render('AppBundle:Home:index.html.twig', [
+            'articles' => $articles,
         ]);
     }
 }
+
+
+
