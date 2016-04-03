@@ -1,10 +1,15 @@
-<h2>Articles</h2>
+<p>List of tutorials</p>
 <ul>
+
     {% for article in articles %}
+
         <li>
-            <h3>{{ article.title }}</h3>
-            {{ article.createdAt|date('m/d/Y H:i') }}
+            <h3>{%  if article.title is not null %}{{ article.title }}{% endif %}</h3>
+            <p>{{ article.author }}</p>
+            <p>{{ article.content }}</p>
+            <p>{{ article.createdAt|date('md/d/Y H:i') }}</p>
             <a href="{{ path('article_list', {'tag' : article.tag}) }}">{{ article.tag }}</a>
         </li>
     {% endfor %}
+
 </ul>

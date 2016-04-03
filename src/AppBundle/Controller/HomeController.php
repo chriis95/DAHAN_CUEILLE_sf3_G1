@@ -10,16 +10,18 @@ use Symfony\Component\Routing\Annotation\Route;
 class HomeController extends Controller
 {
     /**
-     * @Route("/")
+     * Route pour faire n'importe quoi
+     * @Route()
      */
     public function indexAction()
     {
-        /*$antispam = $this->get('antispam');
-
-        dump($antispam->isSpam('RZERZERZERZERZzerzerzerzr'));die;
-
+//        $antispam = $this->get('Antispam');
+        
+       /* dump($antispam->isSpam('dedededee')); die;
+        
+        
         $name = 'Symfony 3';
-        // http://pastebin.com/mLGZ2qaB
+
         $tutorials = [
             [
                 'id' => 2,
@@ -33,23 +35,31 @@ class HomeController extends Controller
                 'id' => 9,
                 'name' => 'Laravel'
             ],
-        ];
+        ];*/
 
-        return $this->render('AppBundle:Home:index.html.twig', [
-            'name'      => $name,
+
+        /*return $this->render('AppBundle:Home:index.html.twig', [
+            'name' => $name,
             'tutorials' => $tutorials,
-        ]);*/
+        ]);
+        */
+        
+/*
+        $articles = $articleRepository->findAll();
+
+        dump($articles); die;*/
+        
+//        return new Response('Article created');
+
+
 
         $em = $this->getDoctrine()->getManager();
         $articleRepository = $em->getRepository('AppBundle:Article\Article');
 
         $articles = $articleRepository->findAll();
-
-        return $this->render('AppBundle:Home:index.html.twig', [
+        return $this->render('AppBundle:Home:index.html.twig',[
             'articles' => $articles,
         ]);
+
     }
 }
-
-
-

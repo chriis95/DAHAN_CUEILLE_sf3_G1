@@ -2,6 +2,7 @@
 
 namespace AppBundle\Antispam;
 
+
 class Antispam
 {
     private $antispamLength;
@@ -9,10 +10,12 @@ class Antispam
     public function __construct($antispamLength)
     {
         $this->antispamLength = $antispamLength;
+//        $this->mailer = $mailer;
     }
 
     public function isSpam($text)
     {
-        return strlen($text) < $this->antispamLength;
+     return strlen($text) < $this->antispamLength;
     }
+
 }
