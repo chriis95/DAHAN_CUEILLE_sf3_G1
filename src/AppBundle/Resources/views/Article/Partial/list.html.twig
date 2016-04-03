@@ -1,15 +1,26 @@
 <h1>Les articles</h1>
-<ul>
 
-    {% for article in articles %}
+<div class="row">
 
-        <li>
-            <h3>{%  if article.title is not null %}{{ article.title }}{% endif %}</h3>
-            <p>{{ article.author }}</p>
-            <p>{{ article.content }}</p>
-            <p>{{ article.createdAt|date('md/d/Y H:i') }}</p>
-            <a href="{{ path('article_list', {'tag' : article.tag}) }}">{{ article.tag }}</a>
-        </li>
-    {% endfor %}
 
-</ul>
+        <ul>
+
+            {% for article in articles %}
+
+                <li>
+                    <h3>{%  if article.title is not null %}{{ article.title }}{% endif %}</h3>
+                    <p>{{ article.author }}</p>
+                    <p>{{ article.content }}</p>
+                    <p>{{ article.createdAt|date('md/d/Y H:i') }}</p>
+                    <a href="{{ path('article_list', {'tag' : article.tag}) }}">{{ article.tag }}</a>
+                </li>
+            {% endfor %}
+
+        </ul>
+
+
+
+</div>
+
+
+
