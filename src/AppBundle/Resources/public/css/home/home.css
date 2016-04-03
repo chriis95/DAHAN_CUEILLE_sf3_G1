@@ -8,3 +8,11 @@ body{
     color:rgb(255, 255, 255);
     text-align: center;
 }
+
+h3 {
+    color: white !important;
+}
+
+li {
+    text-align: center;
+}

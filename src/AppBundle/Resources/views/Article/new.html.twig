@@ -6,7 +6,7 @@
 
 {% block body %}
     {{ parent() }}
-    <h2>Ajouter un article</h2>
+    <h2>Veuillez ajouter un article</h2>
 
     <div class="articles-form-container">
         {{ form_start(form) }}
@@ -21,7 +21,7 @@
         </div>
         <div class="form-group">
             {{ form_errors(form.tag) }}
-            {{ form_widget(form.tag, {'attr' : {'placeholder' : 'Assignez un tag à votre article'}}) }}
+            {{ form_widget(form.tag, {'attr' : {'placeholder' : 'Ajoutez un tag'}}) }}
         </div>
         <div class="form-group">
             {{ form_errors(form.author) }}
